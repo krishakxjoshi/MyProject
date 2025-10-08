@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at bottom right, #141e30, #243b55);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .signup-container {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(138, 43, 226,0.3);
+      width: 400px;
+      padding: 40px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .signup-container h2 {
+      margin-bottom: 20px;
+      color: #8a2be2;
+      font-weight: 700;
+      text-shadow: 0 0 8px rgba(138,43,226,0.8);
+    }
+
+    .signup-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      font-size: 14px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .signup-container input:focus {
+      background: rgba(138,43,226,0.1);
+      box-shadow: 0 0 10px #8a2be2;
+    }
+
+    .signup-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #8a2be2, #00e5ff);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(138,43,226,0.4);
+    }
+
+    .signup-container button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(138,43,226,0.8);
+    }
+
+    .signup-container p {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    .signup-container a {
+      color: #8a2be2;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .signup-container a:hover {
+      text-decoration: underline;
+      color: #00e5ff;
+    }
+
+    .error {
+      color: #ff6f61;
+      font-size: 13px;
+      margin-top: -8px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>Create Account</h2>
+    <form method="post" onsubmit="return validateForm()">
+      <input type="email" name="email" id="email" placeholder="Email" required>
+      <button type="button" onclick="sendOTP()">Send OTP</button>
+      <input type="text" name="otp" id="otp" placeholder="Enter OTP" required>
+      <input type="password" name="password" id="password" placeholder="Create Password" required minlength="6">
+      <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required minlength="6">
+      <p class="error" id="error-msg">Passwords do not match</p>
+      <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+  </div>
+
+  <script>
+    function sendOTP() {
+      const email = document.getElementById('email').value;
+      if(email) {
+        fetch("/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: `email=${email}`
+        }).then(res => {
+          alert("OTP sent to your email!");
+        }).catch(err => {
+          alert("Error sending OTP");
+        });
+      } else {
+        alert("Enter email first");
+      }
+    }
+
+    function validateForm() {
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm_password").value;
+      const errorMsg = document.getElementById("error-msg");
+      if (password !== confirmPassword) {
+        errorMsg.style.display = "block";
+        return false;
+      } else {
+        errorMsg.style.display = "none";
+        return true;
+      }
+    }
+  </script>
+</body>
+</html>

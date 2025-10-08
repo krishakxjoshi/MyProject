@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Account</title>
+</head>
+<body>
+    {% if user %}
+        <h2>Hey, {{ user['name'] }}! 👋</h2>
+        <h3>Your Recent Activities</h3>
+        <ul>
+            {% for activity in activities %}
+                <li>{{ activity['activity'] }} ({{ activity['timestamp'] }})</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>{{ message }}</p>
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+</body>
+</html>
