@@ -5,8 +5,8 @@ This repository contains a curated collection of projects I built in 2025, focus
 ## 📁 Project Categories
 
 ### 🎮 Games
-- Tic Tac Toe (HTML, CSS, JavaScript)
-- Snake & Apple Game (JavaScript)
+- Tic Tac Toe (CPP)
+- Snake & Apple Game (CPP)
 
 ### 🌐 Web Projects
 - Client Web Application (Firm Project – 2025)
@@ -25,5 +25,3 @@ This repository contains a curated collection of projects I built in 2025, focus
 ## 🔗 Purpose
 These projects represent my foundational development journey and serve as the base for my transition into advanced AI/ML systems.
 
-## 📬 Contact
-LinkedIn: <your link>
